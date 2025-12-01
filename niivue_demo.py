@@ -28,36 +28,11 @@ def _():
 
 
 @app.cell
-def _(mo):
-    mo.md("""
-    ## Loading Brain Volume
-
-    Downloading MRI scan from HBN dataset...
-    """)
-    return
-
-
-@app.cell
-def _(NiiVue, mo):
-    import httpx
-    from pathlib import Path
-    import tempfile
-
-    # URL to the brain scan
+def _(NiiVue):
     url = "https://fcp-indi.s3.amazonaws.com/data/Projects/HBN/MRI/Site-CBIC/sub-NDARAA396TWZ/anat/sub-NDARAA396TWZ_acq-HCP_T1w.nii.gz"
 
-    # Create temporary file
-    temp_dir = Path(tempfile.mkdtemp())
-    temp_file = temp_dir / "brain.nii.gz"
-
-    # Download the file with progress indication
-    with mo.status.spinner(title="Downloading brain scan...") as _spinner:
-        response = httpx.get(url, follow_redirects=True, timeout=60.0)
-        temp_file.write_bytes(response.content)
-
-    # Create NiiVue instance and load the file
     nv = NiiVue()
-    nv.load_volumes([{"path": str(temp_file)}])
+    nv.load_volumes([{"url": url}])
 
     nv
     return
