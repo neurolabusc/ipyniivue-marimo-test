@@ -1,5 +1,12 @@
 # ipyniivue marimo demo
 
+This notebook illustrates how [ipyniivue](https://github.com/niivue/ipyniivue) can be embedded into [marimo](https://docs.marimo.io/) notebooks. Documentation for [ipyniivue](https://niivue.github.io/ipyniivue/) and [marimo widgets](https://docs.marimo.io/api/inputs/) can help extend this notebook.
+
+## Live Demo
+[![Open in molab](https://molab.marimo.io/molab-shield.svg)](https://molab.marimo.io/notebooks/nb_UrcD1cE8mC6Pk9Au987RmA)
+
+# Local Development
+
 Open notebook in edit mode:
 
 ```sh
