@@ -23,7 +23,7 @@ def _(mo):
 
 
 @app.cell
-def _(NiiVue, ShowRender, mo, nv2):
+def _(NiiVue, ShowRender, mo):
     nv = NiiVue(
         back_color=(1, 1, 1, 1),
         show_3d_crosshair=True,
@@ -84,7 +84,7 @@ def _(NiiVue, ShowRender, mo, nv2):
         value=1,
         show_value=False,
         label="Outline",
-        on_change=lambda v: setattr(nv2, "overlay_outline_width", v),
+        on_change=lambda v: setattr(nv, "overlay_outline_width", v),
     )
 
     mode_options = [

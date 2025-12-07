@@ -31,6 +31,8 @@ pip install uv
 uv run marimo edit marimo.vox.py
 # alternatively, for mesh-based example
 # uv run marimo edit marimo.mesh.py
+# alternatively, for coregistration example
+# uv run marimo edit marimo.coreg.py
 ```
 
 Export single notebook as WASM+HTML website:
