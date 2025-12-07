@@ -1,0 +1,57 @@
+name: Build and deploy site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Allow the job to push to the deploy branch
+permissions:
+  contents: write
+
+concurrency:
+  group: ghpages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install project and runtime deps from pyproject.toml
+        # installs your package and any dependencies declared in pyproject.toml
+        run: python -m pip install .
+
+      - name: Install uv CLI (required by build_all.py)
+        run: python -m pip install uv
+
+      - name: Make build script executable (optional)
+        run: chmod +x ./build_all.py || true
+
+      - name: Run build script (generates ./dist)
+        run: python ./build_all.py
+
+      - name: Show dist contents (debug)
+        run: |
+          echo "---- dist listing ----"
+          ls -la dist || true
+          echo "----------------------"
+
+      - name: Deploy to GitHub Pages (push dist to demo branch)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: demo        # branch to push the built site to
+          folder: dist        # folder to deploy
+          clean: true

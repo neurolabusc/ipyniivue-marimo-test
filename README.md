@@ -25,14 +25,23 @@ You can run fork and run this live demo using a Github or Google log in.
 Open notebook in edit mode:
 
 ```sh
-git clone git@github.com:neurolabusc/ipyniivue-marimo-test.git
+git clone https://github.com/neurolabusc/ipyniivue-marimo-test.git
 cd ipyniivue-marimo-test
-uv run marimo edit niivue_demo.py
+pip install uv
+uv run marimo edit marimo.vox.py
+# alternatively, for mesh-based example
+# uv run marimo edit marimo.mesh.py
 ```
 
-Export WASM+HTML website:
+Export single notebook as WASM+HTML website:
 
 
 ```sh
-uv run marimo export html-wasm niivue_demo.py -o dist/index.html
+uv run marimo export html-wasm marimo.vox.py -o dist/index.html
+```
+
+Export all `marimo.*.py` notebooks as web pages with an index page and a navigation bar:
+
+```
+python ./build_all.py
 ```
